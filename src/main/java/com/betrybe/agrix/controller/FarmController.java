@@ -116,7 +116,9 @@ public class FarmController {
   ) throws FarmNotFoundException, CropNotFoundException {
     Crop cropToSave = new Crop(
         cropCreationDto.name(),
-        cropCreationDto.plantedArea()
+        cropCreationDto.plantedArea(),
+        cropCreationDto.plantedDate(),
+        cropCreationDto.harvestDate()
     );
 
     Farm farmToVinculate = service.findById(farmId);
