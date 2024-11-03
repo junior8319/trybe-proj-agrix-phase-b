@@ -5,9 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * The type Farm.
@@ -30,6 +32,9 @@ public class Crop {
   @ManyToOne
   @JoinColumn(name = "farm_id")
   private Farm farm;
+
+  @ManyToMany(mappedBy = "crops")
+  private List<Fertilizer> fertilizers;
 
   /**
    * Instantiates a new Crop.
@@ -153,5 +158,23 @@ public class Crop {
    */
   public void setHarvestDate(LocalDate harvestDate) {
     this.harvestDate = harvestDate;
+  }
+
+  /**
+   * Gets fertilizers.
+   *
+   * @return the fertilizers
+   */
+  public List<Fertilizer> getFertilizers() {
+    return fertilizers;
+  }
+
+  /**
+   * Sets fertilizers.
+   *
+   * @param fertilizers the fertilizers
+   */
+  public void setFertilizers(List<Fertilizer> fertilizers) {
+    this.fertilizers = fertilizers;
   }
 }
