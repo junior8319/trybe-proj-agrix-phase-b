@@ -5,6 +5,7 @@ import com.betrybe.agrix.entity.Farm;
 import com.betrybe.agrix.repository.CropRepository;
 import com.betrybe.agrix.service.exception.CropNotFoundException;
 import com.betrybe.agrix.service.exception.FarmNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -138,5 +139,23 @@ public class CropService {
     crop.setFarm(null);
 
     return cropRepository.save(crop);
+  }
+
+  /**
+   * Gets crop by harvest date interval.
+   *
+   * @param start the start
+   * @param end   the end
+   * @return the crop by harvest date interval
+   */
+  public List<Crop> getCropByHarvestDateInterval(LocalDate start, LocalDate end) {
+    List<Crop> crops = findAll();
+
+    return crops.stream()
+        .filter(crop -> crop.getHarvestDate().isEqual(start)
+            || crop.getHarvestDate().isAfter(start))
+        .filter(crop -> crop.getHarvestDate().isBefore(end)
+            || crop.getHarvestDate().isEqual(end))
+        .toList();
   }
 }
