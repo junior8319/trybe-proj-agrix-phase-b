@@ -12,18 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FertilizerService {
   private final FertilizerRepository fertilizerRepository;
-  private final CropService cropService;
 
   /**
    * Instantiates a new Fertilizer service.
    *
    * @param fertilizerRepository the fertilizer repository
-   * @param cropService          the crop service
    */
   @Autowired
-  public FertilizerService(FertilizerRepository fertilizerRepository, CropService cropService) {
+  public FertilizerService(FertilizerRepository fertilizerRepository) {
     this.fertilizerRepository = fertilizerRepository;
-    this.cropService = cropService;
   }
 
   /**

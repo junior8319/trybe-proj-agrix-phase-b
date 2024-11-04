@@ -38,7 +38,6 @@ public class FertilizerController {
    * @return the all fertilizers
    */
   @GetMapping
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<FertilizerDto>> getAllFertilizers() {
     return ResponseEntity.ok().body(fertilizerService.getAllFertilizers()
         .stream()
