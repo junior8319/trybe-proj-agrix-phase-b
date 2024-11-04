@@ -2,6 +2,7 @@ package com.betrybe.agrix.service;
 
 import com.betrybe.agrix.entity.Fertilizer;
 import com.betrybe.agrix.repository.FertilizerRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,15 @@ public class FertilizerService {
   public FertilizerService(FertilizerRepository fertilizerRepository, CropService cropService) {
     this.fertilizerRepository = fertilizerRepository;
     this.cropService = cropService;
+  }
+
+  /**
+   * Gets all fertilizers.
+   *
+   * @return the all fertilizers
+   */
+  public List<Fertilizer> getAllFertilizers() {
+    return fertilizerRepository.findAll();
   }
 
   /**
