@@ -2,11 +2,14 @@ package com.betrybe.agrix.service;
 
 import com.betrybe.agrix.entity.Crop;
 import com.betrybe.agrix.entity.Farm;
+import com.betrybe.agrix.entity.Fertilizer;
 import com.betrybe.agrix.repository.CropRepository;
 import com.betrybe.agrix.service.exception.CropNotFoundException;
 import com.betrybe.agrix.service.exception.FarmNotFoundException;
+import com.betrybe.agrix.service.exception.FertilizerNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +20,21 @@ import org.springframework.stereotype.Service;
 public class CropService {
   private final CropRepository cropRepository;
   private final FarmService farmService;
+  private final FertilizerService fertilizerService;
 
   /**
    * Instantiates a new Crop service.
    *
-   * @param cropRepository the crop repository
-   * @param farmService    the farm service
+   * @param cropRepository    the crop repository
+   * @param farmService       the farm service
+   * @param fertilizerService the fertilizer service
    */
   @Autowired
-  public CropService(CropRepository cropRepository, FarmService farmService) {
+  public CropService(CropRepository cropRepository, FarmService farmService,
+      FertilizerService fertilizerService) {
     this.cropRepository = cropRepository;
     this.farmService = farmService;
+    this.fertilizerService = fertilizerService;
   }
 
   /**
@@ -124,6 +131,29 @@ public class CropService {
     crop.setFarm(farm);
 
     return cropRepository.save(crop);
+  }
+
+  /**
+   * Sets fertilizer crop.
+   *
+   * @param cropId       the crop id
+   * @param fertilizerId the fertilizer id
+   * @return a success message or
+   * @throws CropNotFoundException       the crop not found exception
+   * @throws FertilizerNotFoundException the fertilizer not found exception
+   */
+  public String setFertilizerCrop(
+      Long cropId,
+      Long fertilizerId
+  ) throws CropNotFoundException, FertilizerNotFoundException {
+    Crop cropToAssociate = findById(cropId);
+    Fertilizer fertilizerToAssociate = fertilizerService.getFertilizerById(fertilizerId);
+
+    cropToAssociate.getFertilizers().add(fertilizerToAssociate);
+
+    cropRepository.save(cropToAssociate);
+
+    return "Fertilizante e plantação associados com sucesso!";
   }
 
   /**
