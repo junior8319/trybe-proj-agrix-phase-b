@@ -3,11 +3,13 @@ package com.betrybe.agrix.controller;
 import com.betrybe.agrix.controller.dto.FertilizerCreationDto;
 import com.betrybe.agrix.controller.dto.FertilizerDto;
 import com.betrybe.agrix.service.FertilizerService;
+import com.betrybe.agrix.service.exception.FertilizerNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,21 @@ public class FertilizerController {
         .stream()
         .map(FertilizerDto::fromEntity)
         .toList());
+  }
+
+
+  /**
+   * Gets fertilizer by id.
+   *
+   * @param id the id
+   * @return the fertilizer by id
+   * @throws FertilizerNotFoundException the fertilizer not found exception
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity<FertilizerDto> getFertilizerById(@PathVariable Long id)
+      throws FertilizerNotFoundException {
+    return ResponseEntity.ok()
+        .body(FertilizerDto.fromEntity(fertilizerService.getFertilizerById(id)));
   }
 
   /**
