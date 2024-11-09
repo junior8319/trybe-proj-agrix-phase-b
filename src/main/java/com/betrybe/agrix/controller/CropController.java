@@ -1,6 +1,7 @@
 package com.betrybe.agrix.controller;
 
 import com.betrybe.agrix.controller.dto.CropDto;
+import com.betrybe.agrix.controller.dto.FertilizerDto;
 import com.betrybe.agrix.entity.Crop;
 import com.betrybe.agrix.service.CropService;
 import com.betrybe.agrix.service.exception.CropNotFoundException;
@@ -78,6 +79,23 @@ public class CropController {
     List<Crop> crops = cropService.getCropByHarvestDateInterval(start, end);
 
     return crops.stream().map(CropDto::fromEntity).toList();
+  }
+
+  /**
+   * Gets crop fertilizers by crop id.
+   *
+   * @param cropId the crop id
+   * @return the crop fertilizers by crop id
+   * @throws CropNotFoundException the crop not found exception
+   */
+  @GetMapping("/{cropId}/fertilizers")
+  @ResponseStatus(HttpStatus.OK)
+  public List<FertilizerDto> getCropFertilizersByCropId(@PathVariable Long cropId)
+      throws CropNotFoundException {
+    return cropService.getCropFertilizers(cropId)
+        .stream()
+        .map(FertilizerDto::fromEntity)
+        .toList();
   }
 
   /**

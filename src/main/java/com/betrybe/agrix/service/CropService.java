@@ -188,4 +188,15 @@ public class CropService {
             || crop.getHarvestDate().isEqual(end))
         .toList();
   }
+
+  /**
+   * Gets crop fertilizers.
+   *
+   * @param id the id
+   * @return the crop fertilizers
+   * @throws CropNotFoundException the crop not found exception
+   */
+  public List<Fertilizer> getCropFertilizers(Long id) throws CropNotFoundException {
+    return findById(id).getFertilizers();
+  }
 }
