@@ -47,6 +47,11 @@ public class Fertilizer {
     this.composition = composition;
   }
 
+  /**
+   * Instantiates a new Fertilizer.
+   */
+  public Fertilizer() {}
+
 
   /**
    * Gets id.
